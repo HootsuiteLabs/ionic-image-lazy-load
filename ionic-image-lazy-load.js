@@ -92,11 +92,19 @@ angular.module('ionicLazyLoad')
                 );
 
                 function loadImage() {
+
+                    if ($scope.loading) {
+                      return;
+                    } else {
+                      $scope.loading = true;
+                    }
+
                     //Bind "load" event
                     $element.bind("load", function (e) {
                         if ($attributes.imageLazyLoader) {
                             loader.remove();
                         }
+
                         if ($scope.lazyScrollResize == "true") {
                             //Call the resize to recalculate the size of the screen
                             $ionicScrollDelegate.resize();
@@ -111,12 +119,16 @@ angular.module('ionicLazyLoad')
                             if ($attributes.imageLazyLoader) {
                                 loader.remove();
                             }
+                            $element[0].style.transition = "all 0.7s";
+                            $element[0].style.opacity = "1.0";
+
                             $element[0].style.backgroundImage = 'url(' + $attributes.imageLazySrc + ')'; // set style attribute on element (it will load image)
                             if ($scope.lazyScrollResize == "true") {
                                 //Call the resize to recalculate the size of the screen
                                 $ionicScrollDelegate.resize();
                             }
                         };
+                        $element[0].style.opacity = "0.0";
                         $scope.imageLoadTimerStart();
                         bgImg.src = $attributes.imageLazySrc;
                     } else {
