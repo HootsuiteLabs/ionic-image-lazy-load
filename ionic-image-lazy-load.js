@@ -26,7 +26,7 @@ angular.module('ionicLazyLoad')
                     $timeout.cancel(scrollTimeoutId);
 
                     // wait and then invoke listeners (simulates stop event)
-                    scrollTimeoutId = $timeout($scope.invoke, 150);
+                    scrollTimeoutId = $timeout($scope.invoke, 0);
 
                 });
 
@@ -68,7 +68,6 @@ angular.module('ionicLazyLoad')
                         $element.after(loader);
                     }
                     var deregistration = $scope.$on('lazyScrollEvent', function () {
-                            console.log('scroll');
                             if (isInView()) {
                                 loadImage();
                                 deregistration();
