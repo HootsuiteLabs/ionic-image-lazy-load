@@ -82,7 +82,6 @@ angular.module('ionicLazyLoad')
                     }, 500);
                 });
                 var deregistration = $scope.$on('lazyScrollEvent', function () {
-                        console.log('scroll');
                         if (isInView()) {
                             loadImage();
                             deregistration();
