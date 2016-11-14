@@ -135,6 +135,15 @@ angular.module('ionicLazyLoad')
                 }
 
                 function isInView() {
+                    // AMP-232
+                    // force all articles into view when in browser
+                    // allows us to continue using this hybrid/mobile ionicLazyLoad library
+                    // on browser version of Amplify, without having to debug weird behavior
+                    // where scroll event is not loading images properly
+                    if (!window.cordova) {
+                        return true;
+                    }
+
                     var clientHeight = $document[0].documentElement.clientHeight;
                     var clientWidth = $document[0].documentElement.clientWidth;
                     var imageRect = $element[0].getBoundingClientRect();
